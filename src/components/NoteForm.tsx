@@ -1,11 +1,31 @@
+import { FormEvent, useRef, useState } from 'react'
 import { Button, Col, Form, Row, Stack } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import CreatableReactSelect from 'react-select/creatable'
+import { NoteData } from '../types/NoteData'
+import { Tag } from '../types/Tag'
 
+type NoteFormProps = {
+    onSubmit: (data: NoteData ) => void
+}
 
-const NoteForm = () => {
+const NoteForm = (
+    // { onSubmit }: NoteFormProps
+  ) => {
+    const titleRef = useRef<HTMLInputElement>(null)
+    const markdownRef = useRef<HTMLTextAreaElement>(null)
+    const [selectedTags, setSelectedTags] = useState<Tag[]>([])
+
+    function handleSubmit(e: FormEvent ) {
+        e.preventDefault()
+        // onSubmit({
+        //   title: titleRef.current!.value,
+        //   markdown: markdownRef.current!.value,
+        //   tags: []
+        // })
+    }
   return (
-    <Form>
+    <Form onSubmit={handleSubmit}>
       <Stack gap={4}>
         <Row>
           <Col>
@@ -13,6 +33,8 @@ const NoteForm = () => {
               <Form.Label>Title</Form.Label>
               <Form.Control
                 required
+                ref={titleRef}
+                // defaultValue={title}
                 />
             </Form.Group>
           </Col>
@@ -20,6 +42,16 @@ const NoteForm = () => {
             <Form.Group controlId="tags">
               <Form.Label>Tags</Form.Label>
               <CreatableReactSelect
+                onChange={tags => {
+                  setSelectedTags(
+                    tags.map(tag => {
+                      return { label: tag.label, id: tag.value }
+                    })
+                  )
+                }}
+                value={selectedTags.map(tag => {
+                  return { label: tag.label, value: tag.id }
+                })}
                 isMulti
               />
             </Form.Group>
@@ -30,6 +62,8 @@ const NoteForm = () => {
           <Form.Control
             required
             as="textarea"
+            ref={markdownRef}
+            // defaultValue={markdown}
             rows={15}
           />
         </Form.Group>
