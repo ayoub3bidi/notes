@@ -1,7 +1,7 @@
 import { Tag } from './Tag';
 
-export type NoteData = {
+export type RawNoteData = {
     title: string,
     markdown: string,
-    tags: Tag[]
+    tagIds: string[]
 }
