@@ -1,10 +1,15 @@
 import NoteForm from './components/NoteForm'
+import { NewNoteProps } from './types/NewNoteProps'
 
-const NewNote = () => {
+const NewNote = ({ onSubmit, onAddTag, availableTags }: NewNoteProps) => {
   return (
     <>
       <h1 className='mb-4'>New Note</h1>
-      <NoteForm />
+      <NoteForm
+        onSubmit={onSubmit}
+        onAddTag={onAddTag}
+        availableTags={availableTags}
+      />
     </>
   )
 }

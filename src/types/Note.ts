@@ -1,4 +1,4 @@
-import { NoteData } from "./RawNoteData";
+import { NoteData } from "./NoteData";
 
 export type Note = {
     id: string,
