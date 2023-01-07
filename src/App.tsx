@@ -8,6 +8,7 @@ import { RawNote } from "./types/RawNote"
 import { NoteData } from "./types/NoteData"
 import { Tag } from "./types/Tag"
 import { v4 as uuidV4 } from "uuid"
+import { Home } from "./Home"
 
 function App() {
   const [notes, setNotes] = useLocalStorage<RawNote[]>("NOTES", [])
@@ -28,13 +29,18 @@ function App() {
   function addTag(tag: Tag) {
     setTags(prevTags => {
       return [...prevTags, tag]
-    })
+    })  
   }
 
   return (
     <Container className="my-4">
       <Routes>
-        <Route path="/" element={<h1>Home</h1>} />
+        <Route path="/" element={
+          <Home
+            notes={notesWithTags}
+            availableTags={tags}        
+          />
+        } />
         <Route path="/new" element={
             <NewNote
               onSubmit={onCreateNote}

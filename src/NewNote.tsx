@@ -1,5 +1,5 @@
 import NoteForm from './components/NoteForm'
-import { NewNoteProps } from './types/NewNoteProps'
+import { NewNoteProps } from './types/props/NewNoteProps.Ts'
 
 const NewNote = ({ onSubmit, onAddTag, availableTags }: NewNoteProps) => {
   return (
